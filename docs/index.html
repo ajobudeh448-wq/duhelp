@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F4D45">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IT-помощь">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>IT-помощь Dusit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Лобби: тёплый светлый фон, изумрудный акцент, латунь для меток; одна колонка под телефон */
+:root{
+  --bg:#F6F1E8; --surface:#FFFDF8; --line:#E4DCCD; --chip:#EDE5D6;
+  --ink:#1F2A27; --ink-2:#3E4A46; --muted:#5E6863;
+  --accent:#1F4D45; --on-accent:#F6F1E8; --brass:#8A5F27;
+  --warn-bg:#F3E6CF; --warn-line:#E2CBA2; --warn-ink:#4A3518; --ok:#2F6B4F;
+  --urgent-bg:#F6E1DA; --urgent-line:#E3B7A8; --urgent-ink:#6B2414;
+  --shadow:0 6px 18px rgba(60,45,20,.07);
+  --f-display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --f-body:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111614; --surface:#18201D; --line:#2A3430; --chip:#202A26;
+  --ink:#EEE8DC; --ink-2:#CFC8BB; --muted:#9AA39E;
+  --accent:#86BFAE; --on-accent:#0F1513; --brass:#D2A564;
+  --warn-bg:#2A2216; --warn-line:#4A3B22; --warn-ink:#F0DDB8; --ok:#86C9A2;
+  --urgent-bg:#2E1A15; --urgent-line:#5A2E22; --urgent-ink:#F3C5B6;
+  --shadow:0 6px 18px rgba(0,0,0,.35); color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#111614; --surface:#18201D; --line:#2A3430; --chip:#202A26;
+  --ink:#EEE8DC; --ink-2:#CFC8BB; --muted:#9AA39E;
+  --accent:#86BFAE; --on-accent:#0F1513; --brass:#D2A564;
+  --warn-bg:#2A2216; --warn-line:#4A3B22; --warn-ink:#F0DDB8; --ok:#86C9A2;
+  --urgent-bg:#2E1A15; --urgent-line:#5A2E22; --urgent-ink:#F3C5B6;
+  --shadow:0 6px 18px rgba(0,0,0,.35); color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+a{color:var(--accent)}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:6px}
+.wrap{max-width:520px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 28px;min-height:100vh;display:flex;flex-direction:column}
+.wrap.big{zoom:1.15}
+.view{display:flex;flex-direction:column;gap:22px;flex:1}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.brass{color:var(--brass)}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.topbar .r{display:flex;align-items:center;gap:8px}
+.size-btn{min-width:44px;height:36px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1;cursor:pointer}
+.size-btn[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.offline{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted)}
+.offline::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brass)}
+h1,h2{font-family:var(--f-display);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:44px;line-height:1.02}
+h1 em,h2 em{font-style:italic;font-weight:500;color:var(--accent)}
+.lead{margin:6px 0 0;font-size:14px;color:var(--muted);max-width:40ch}
+.search{display:flex;align-items:center;gap:12px;height:54px;padding:0 8px 0 20px;border-radius:999px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.search:focus-within{border-color:var(--accent)}
+.search input{flex:1;min-width:0;background:transparent;border:0;outline:none;color:var(--ink);font:500 16px var(--f-body)}
+.search input::placeholder{color:var(--muted)}
+.icon-btn[disabled]{opacity:.3;cursor:default}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--muted);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.list{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:14px;min-height:62px;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.row:last-child{border-bottom:0}
+.row .ic{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.row .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.row .nm{font-family:var(--f-display);font-weight:600;font-size:22px;line-height:1.15}
+.row .sub{font-size:13px;color:var(--muted)}
+.row .nm.small{font-family:var(--f-body);font-weight:600;font-size:16px;line-height:1.35}
+.row .chev{flex:none;color:var(--brass)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;background:var(--chip);color:var(--ink);font-size:14px;font-weight:500;text-decoration:none;border:0;cursor:pointer}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 20px;border-radius:999px;border:0;background:var(--accent);color:var(--on-accent);font-weight:600;font-size:16px;text-decoration:none;cursor:pointer;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn.small{min-height:44px;font-size:14px;padding:0 16px}
+.back{align-self:flex-start;display:flex;align-items:center;gap:6px;min-height:44px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.card-head{display:flex;flex-direction:column;gap:10px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.card-head h2{font-size:38px;line-height:1.04}
+.card-head p{margin:0;font-size:15px;color:var(--ink-2)}
+.pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pill.draft{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line)}
+.pill.stale{background:var(--urgent-bg);color:var(--urgent-ink);border:1px solid var(--urgent-line)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.progress{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.progress .bar{flex:1;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.progress .bar i{display:block;height:100%;background:var(--accent);transition:width .2s ease}
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.step{border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.stepbtn{width:100%;display:flex;gap:16px;padding:16px 0;background:transparent;border:0;text-align:left;cursor:pointer}
+.num{flex:none;width:34px;font-family:var(--f-display);font-style:italic;font-weight:500;font-size:36px;line-height:.9;color:var(--brass)}
+.step .body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.step .t{font-weight:700;font-size:16px;line-height:1.35}
+.step .d{font-size:14px;color:var(--muted)}
+.step.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.step.done .num{color:var(--ok)}
+.step .tick{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:transparent;margin-top:2px}
+.step.done .tick{background:var(--ok);border-color:var(--ok);color:var(--bg)}
+.final{display:flex;gap:16px;padding:16px 0;align-items:center}
+.photo{display:block;border-radius:6px;overflow:hidden;margin-top:4px}
+.photo img{display:block;width:100%;height:auto}
+.photo.full{margin:0 0 16px}
+.photo.ph{height:120px;background:var(--chip);border:1px dashed var(--warn-line);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);text-align:center;padding:0 12px}
+.warn,.urgent{display:flex;gap:12px;padding:14px 16px;border-radius:8px;font-size:14px}
+.warn{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink)}
+.warn svg{flex:none;margin-top:1px;color:var(--brass)}
+.urgent{background:var(--urgent-bg);border:1px solid var(--urgent-line);color:var(--urgent-ink);font-weight:600}
+.urgent svg{flex:none;margin-top:1px}
+.fix{display:flex;gap:12px;padding:14px 16px;border-radius:8px;background:var(--surface);border:1px solid var(--accent);color:var(--ink);font-size:14px}
+.fix svg{flex:none;margin-top:1px;color:var(--accent)}
+.fix b{display:block;font-size:15px;margin-bottom:2px}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.notebox{display:flex;flex-direction:column;gap:6px;padding:14px 16px;border-radius:8px;background:var(--surface);border:1px solid var(--line)}
+.notebox p{margin:0;font-size:14px;color:var(--ink-2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;background:var(--chip);font-size:14px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}
+.seg input:checked+span{background:var(--accent);color:var(--on-accent)}
+.seg input:focus-visible+span{outline:2px solid var(--brass);outline-offset:2px}
+.msg{white-space:pre-wrap;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.contrib{display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;border:1.5px dashed var(--brass);background:var(--surface);color:var(--ink);text-decoration:none}
+.contrib .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.contrib .tx b{font-family:var(--f-display);font-weight:600;font-size:21px;line-height:1.15}
+.contrib .tx span{font-size:13px;color:var(--muted)}
+.contrib-ic{flex:none;width:40px;height:40px;border-radius:50%;background:var(--warn-bg);color:var(--brass);display:flex;align-items:center;justify-content:center}
+.contrib .chev{flex:none;color:var(--brass)}
+.more-link{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;font-size:14px;font-weight:600;color:var(--brass)}
+.mine{display:flex;flex-direction:column;gap:8px}
+.mine-item{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:10px;background:var(--chip);font-size:14px}
+.mine-item span{color:var(--ink-2);overflow-wrap:anywhere}
+.alts{display:flex;flex-direction:column;gap:8px}
+.alt{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);background:var(--surface);border-radius:8px}
+.alt p{margin:0;font-size:15px}
+.alt span{font-size:12px;color:var(--muted)}
+.credits{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.credits svg{flex:none;color:var(--brass)}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.note{font-size:13px;color:var(--muted);text-align:center}
+.panel{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.panel .big{font-family:var(--f-display);font-weight:600;font-size:32px;line-height:1;user-select:all;font-variant-numeric:tabular-nums}
+.thanks{display:flex;align-items:center;gap:10px;padding:16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);color:var(--ok);font-weight:600}
+.banner{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:14px}
+.banner .tx{flex:1;min-width:0}
+.empty{padding:18px 0;color:var(--muted);font-size:15px}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:12px;font-size:12px;color:var(--muted)}
+.foot a{color:var(--muted)}
+.stat{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+.stat b{font-variant-numeric:tabular-nums;flex:none}
+.stat .q{min-width:0;overflow-wrap:anywhere;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.stat a{font-size:13px;font-weight:600;flex:none}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;font-weight:600;color:var(--ink-2)}
+.field .hint,.hint{font-size:12px;color:var(--muted)}
+.field input,.field textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-size:16px}
+.field textarea{min-height:96px;resize:vertical;line-height:1.45}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;background:var(--chip);font-size:14px;font-weight:500;cursor:pointer}
+.code{width:100%;min-height:200px;font:13px/1.5 ui-monospace,"SF Mono",Menlo,Consolas,monospace;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);white-space:pre;overflow:auto}
+.qr{display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;border-radius:14px;background:#FFFFFF;border:1px solid var(--line);color:#1F2A27;text-align:center}
+.qr img{width:240px;height:240px;image-rendering:pixelated}
+.qr .qt{font-family:var(--f-display);font-weight:600;font-size:26px;line-height:1.1}
+@media (prefers-reduced-motion:no-preference){.view{animation:in .18s ease-out}@keyframes in{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}}
+</style>
+
+</head>
+<body>
+<div id="app" class="wrap" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   КОНТЕНТ. Правила — в CLAUDE.md. Карточку удобнее собирать в «Для IT» → «Новая карточка».
+   ===================================================================== */
+const CONFIG = {
+  hotel: 'Dusit Thani Anapa',
+  itPhone: '[доб. IT]',     // как показывать номер
+  itPhoneTel: '',           // для звонка в один тап, например '+78612000000'
+  version: '1.5'
+};
+
+const DEPTS = [
+  { id:'reception',    name:'Ресепшн',        hint:'браслеты, касса, Wi‑Fi гостей',  icon:'bell' },
+  { id:'housekeeping', name:'Хаускипинг',     hint:'телевизоры, телефоны',           icon:'bed' },
+  { id:'restaurant',   name:'Ресторан и бар', hint:'принтеры чеков, кассы',          icon:'glass' },
+  { id:'office',       name:'Офис',           hint:'компьютер, интернет, двери',     icon:'monitor' }
+];
+
+/*CARDS_START*/
+const DEFAULT_CARDS = [
+  {
+    id:'acquiring-error-99', title:'Терминал оплаты: нет связи, ошибка 99', device:'Терминал Сбер',
+    depts:['reception'], minutes:2, checked:null, popular:true, urgent:true,
+    symptom:'Гость платит картой, а касса пишет «нет связи с терминалом» или «Ошибка 99».',
+    keywords:'эквайринг терминал сбер оплата картой ошибка 99 нет связи пинпад не проходит оплата не видит терминал',
+    steps:[
+      { t:'Выньте оба провода из разъёма терминала', d:'Место, где два провода входят в терминал.', photo:'img/acquiring-ports.svg' },
+      { t:'Подождите 10 секунд' },
+      { t:'Вставьте провода на свои места', d:'Слева питание от блока в розетку, справа USB от компьютера. Не перепутайте.' },
+      { t:'Дождитесь, пока терминал загрузится', d:'На экране появится заставка и номер терминала.' },
+      { t:'Повторите оплату' }
+    ],
+    done:'Готово, если оплата прошла',
+    warn:'Если перепутать провода, терминал включится, но касса его не увидит и снова покажет ошибку 99.',
+    tell:'номер терминала с экрана (8 цифр после «Терминал:») и текст ошибки'
+  },
+  {
+    id:'fiscal-service-restart', title:'Не выходят фискальные чеки', device:'Касса / FiscalService',
+    depts:['reception','restaurant'], minutes:2, checked:null, popular:true, urgent:true,
+    symptom:'Оплата проходит, а фискальные чеки не печатаются, причём не у одного гостя, а подряд.',
+    keywords:'фискальный чек не выходит не печатается фискал сервис служба атол касса чеки не идут налоговая перезапуск',
+    steps:[
+      { t:'Нажмите «Пуск» и наберите services', d:'В результатах выберите Services и нажмите Open.', photo:'img/services-search.svg' },
+      { t:'Найдите в списке FiscalService', d:'Список по алфавиту. Нажмите клавишу F, чтобы перескочить к нужным буквам.' },
+      { t:'Правой кнопкой по FiscalService → Restart', d:'Restart значит «Перезапустить». Подождите 10–20 секунд.', photo:'img/services-restart.svg' },
+      { t:'Проверьте, что в колонке Status написано Running' },
+      { t:'Повторите печать чека' }
+    ],
+    done:'Готово, если чек напечатался',
+    warn:'Не нажимайте Stop и не закрывайте окно FiscalService кнопкой «OK»: фискализация остановится совсем.',
+    tell:'номер станции и с какого времени не идут чеки'
+  },
+  {
+    id:'erc-comm-error', title:'Не печатаются заказы: ERC COMM ERROR', device:'Касса Simphony / EMC',
+    depts:['restaurant'], minutes:5, checked:null, popular:true, urgent:true,
+    symptom:'При отправке заказа касса выдаёт ошибку печати, заказ не выходит на кухню или бар. Чаще всего случается после отключения света.',
+    keywords:'erc comm error ошибка печати заказ не выходит на кухню бар принтер кухни резервный принтер недоступен сбой задания печати симфони emc рабочая станция контроллер',
+    fix:{ title:'Решение: перезагрузить рабочую станцию из EMC', text:'Печать на принтер идёт через станцию-контроллер. Её перезагрузка восстанавливает печать.' },
+    steps:[
+      { t:'Запомните название принтера из текста ошибки', d:'Первая строка ошибки, например «Принтер 7 этаж Кухня №1».', photo:'img/erc-comm-error.jpg' },
+      { t:'Откройте в EMC список принтеров', d:'Слева выберите уровень отеля Dusit Thani Hotel → вкладка «Настр.» → «Оборудование/Интерфейсы» → «Принтеры».' },
+      { t:'Найдите принтер из ошибки и посмотрите поле «Рабочая станция»', d:'Это контроллер печати.', photo:'img/erc-emc-printer.jpg' },
+      { t:'Перезагрузите эту станцию', d:'Дождитесь полной загрузки Симфонии.' },
+      { t:'Если ошибка не ушла, перезагрузите и кассу, с которой она появилась' },
+      { t:'Проверьте печать', d:'Пробейте позицию с модификатором «Не готовить» и убедитесь, что она вышла на принтер.' }
+    ],
+    done:'Готово, если позиция «Не готовить» вышла на принтер',
+    notes:[
+      { title:'Если станция — сервер CAPS', text:'Предупредите бар и рестораны: несколько минут печать и кассы через CAPS не работают. После перезагрузки зайдите на CAPS по RDP, чтобы поднялась Симфония. RDP закрывайте крестиком, не «Выйти».' },
+      { title:'Пока печать не работает', text:'Заказы передавайте на кухню или в бар голосом. После ремонта отправьте невышедшие позиции повторно.' }
+    ],
+    tell:'название принтера из ошибки и номер кассы'
+  },
+  {
+    id:'opera-cert-error', title:'Опера не открывается: подключение не защищено', device:'Opera / Microsoft Edge',
+    depts:['reception','office'], minutes:1, checked:null, popular:true,
+    symptom:'Браузер Edge показывает красный треугольник и ошибку NET::ERR_CERT_COMMON_NAME_INVALID.',
+    keywords:'опера opera не открывается подключение не защищено не является закрытым небезопасно красный треугольник сертификат net err cert edge режим internet explorer ie',
+    fix:{ title:'Это не опасно', text:'Нужно добавить адрес Оперы в режим Internet Explorer в браузере Microsoft Edge.' },
+    steps:[
+      { t:'Видите эту ошибку', d:'Ничего не нажимайте на этой странице, делайте шаги ниже.', photo:'img/opera-1.jpg' },
+      { t:'Скопируйте адрес Оперы', d:'Нажмите на адресную строку → правой кнопкой → «Копировать».', photo:'img/opera-2.jpg' },
+      { t:'Откройте параметры', d:'Справа вверху три точки (…) → «Параметры».', photo:'img/opera-3.jpg' },
+      { t:'Браузер по умолчанию', d:'Слева «Браузер по умолчанию» → «Добавить страницу».', photo:'img/opera-4.jpg' },
+      { t:'Вставьте адрес и добавьте', d:'Вставьте (Ctrl+V) https://s-avz-oapp-001.avz.miracleon.ru/ → «Добавить».', photo:'img/opera-5.jpg' },
+      { t:'Перезапустите Edge', d:'Закройте все окна Edge и откройте Оперу заново.' }
+    ],
+    done:'Готово: Опера загрузится в режиме Internet Explorer и откроется как обычно',
+    notes:[
+      { title:'Важно', text:'Страница в режиме IE работает 30 дней. Ошибка вернулась — повторите шаги.' },
+      { title:'Когда звать IT', text:'После шагов Опера всё равно не открывается. Нет кнопки «Добавить страницу» или настройка заблокирована.' }
+    ],
+    warn:'Если пункт «Разрешить сайтам перезагружаться в режиме IE» стоит не на «Разрешить», сами не меняйте.',
+    tell:'имя компьютера и на каком шаге остановились'
+  },
+  {
+    id:'tv-hang', title:'Телевизор завис на загрузке', device:'Телевизор',
+    depts:['housekeeping','reception'], minutes:2, checked:null, popular:true,
+    symptom:'Горит заставка отеля и дальше не грузится, пульт не реагирует.',
+    keywords:'тв телик экран заставка не включается висит пульт не работает меню',
+    steps:[
+      { t:'Выключите телевизор из розетки', d:'Не кнопкой на пульте, а именно из розетки или кнопкой на корпусе.', photoHint:'фото: где розетка за ТВ' },
+      { t:'Подождите 30 секунд' },
+      { t:'Включите и подождите 2 минуты', d:'Меню отеля загружается не сразу, кнопки не нажимайте.' }
+    ],
+    done:'Готово, если появилось меню отеля',
+    warn:'Не делайте сброс настроек (Reset): после него ТВ придётся настраивать заново.',
+    tell:'номер комнаты и что видно на экране'
+  },
+  {
+    id:'receipt-printer', title:'Принтер чеков не печатает', device:'Принтер чеков',
+    depts:['restaurant','reception'], minutes:2, checked:null, popular:true, urgent:true,
+    symptom:'Чек пробили, а принтер молчит или выходит пустая лента.',
+    keywords:'чек не печатает пустой чек бумага лента принтер касса не выходит не пикает',
+    steps:[
+      { t:'Проверьте, что принтер включён', d:'Должен гореть индикатор. Если не горит, проверьте вилку и кнопку питания.' },
+      { t:'Откройте крышку и проверьте бумагу', d:'Закончился рулон: вставьте новый по рисунку внутри крышки, конец ленты выведите наружу.', photoHint:'фото: как вставить рулон' },
+      { t:'Закройте крышку до щелчка', d:'Неплотно закрытая крышка: принтер мигает и не печатает.' },
+      { t:'Повторите печать чека с кассы' }
+    ],
+    done:'Готово, если чек напечатался',
+    warn:'Не выдёргивайте кабели из кассы и принтера, только питание принтера.',
+    tell:'какая точка (бар, ресторан, ресепшн) и какой индикатор горит на принтере'
+  },
+  {
+    id:'fiscal-check-stuck', title:'Чек завис и не уходит в кассу', device:'Касса / FiscalService',
+    depts:['reception','restaurant'], minutes:3, checked:null, popular:false, urgent:true,
+    symptom:'Оплата прошла, а фискальный чек не напечатался и висит в очереди.',
+    keywords:'фискальный чек завис не пробился касса атол фискал очередь чек не ушел налоговая',
+    steps:[
+      { t:'Откройте папку C:\\FiscalService\\Checks', d:'Через «Этот компьютер» на рабочей станции.' },
+      { t:'Включите показ расширений файлов', d:'Вверху окна: «Вид» → поставьте галочку «Расширения имён файлов».' },
+      { t:'Найдите файл чека с окончанием .ck7', d:'Обычно он самый свежий по дате.' },
+      { t:'Переименуйте окончание .ck7 в .ck6', d:'Имя файла не меняйте, только последнюю цифру. На вопрос Windows ответьте «Да».' },
+      { t:'Подождите минуту', d:'Касса сама заберёт чек, а файл станет .ck9.' }
+    ],
+    done:'Готово, если чек напечатался, а файл стал .ck9',
+    warn:'Не закрывайте окно FiscalService кнопкой «OK»: это останавливает фискализацию на всей точке.',
+    tell:'номер станции, время оплаты и сумму чека'
+  },
+  {
+    id:'bracelet-door', title:'Браслет гостя не открывает дверь', device:'Замок номера',
+    depts:['reception'], minutes:3, checked:null, popular:true,
+    symptom:'Гость прикладывает браслет, замок пищит и не открывается.',
+    keywords:'браслет ключ карта замок дверь не открывает пищит номер гость',
+    steps:[
+      { t:'Проверьте даты проживания', d:'Если сегодня выезд или даты в брони изменились, браслет мог перестать работать.' },
+      { t:'Запишите браслет заново', d:'Как обычно, через ключницу на ресепшн.' },
+      { t:'Попросите гостя попробовать ещё раз' }
+    ],
+    done:'Готово, если дверь открылась',
+    warn:'Если новый браслет тоже не открывает, а замок пищит 3 раза, дело в замке. Звоните в IT.',
+    tell:'номер комнаты и сколько раз пищит замок'
+  },
+  {
+    id:'access-door', title:'Служебная дверь не открывается картой', device:'Дверь с контролем доступа',
+    depts:['office','housekeeping','reception','restaurant'], minutes:1, checked:null, popular:false,
+    symptom:'Прикладываете карту к считывателю у служебной двери, а она не открывается.',
+    keywords:'дверь служебная карта пропуск считыватель не открывает скуд не пускает',
+    steps:[
+      { t:'Приложите карту к считывателю и не убирайте', d:'Держите карту вплотную около секунды.' },
+      { t:'Дождитесь зелёного индикатора' },
+      { t:'Только после щелчка замка тяните ручку', d:'Если дёргать раньше, замок не успевает открыться.' }
+    ],
+    done:'Готово, если дверь открылась',
+    warn:'Если индикатор загорается красным, у карты нет доступа к этой двери. Это решает IT вместе с вашим руководителем.',
+    tell:'какая дверь и какой цвет индикатора'
+  },
+  {
+    id:'phone-signal', title:'Радиотелефон теряет сигнал', device:'Радиотелефон',
+    depts:['housekeeping','reception'], minutes:1, checked:null, popular:true,
+    symptom:'Звонок обрывается или на трубке пропадают палочки связи.',
+    keywords:'телефон трубка сигнал связь обрывается не ловит не слышно звонок',
+    steps:[
+      { t:'Проверьте заряд трубки', d:'Батарея почти пустая: поставьте трубку на зарядку на 15 минут.' },
+      { t:'Отойдите ближе к коридору или холлу', d:'В некоторых местах сигнал слабый из-за стен, трубка при этом исправна.' }
+    ],
+    done:'Готово, если связь вернулась',
+    warn:'Если в одном и том же месте связь пропадает постоянно, сообщите IT, где именно.',
+    tell:'где пропадает связь: этаж и помещение'
+  },
+  {
+    id:'guest-wifi', title:'У гостя отваливается Wi‑Fi', device:'Wi‑Fi',
+    depts:['reception'], minutes:2, checked:null, popular:false,
+    symptom:'Гость жалуется, что интернет пропадает или не подключается.',
+    keywords:'вайфай wifi интернет сеть гость не подключается отваливается пропадает',
+    steps:[
+      { t:'Попросите гостя забыть сеть', d:'Настройки Wi‑Fi в телефоне: сеть отеля → «Забыть эту сеть».' },
+      { t:'Подключиться заново', d:'Выбрать сеть отеля и снова пройти страницу входа.' },
+      { t:'Уточните, где это происходит', d:'Если только в одном месте (номер, пляж), запишите где.' }
+    ],
+    done:'Готово, если интернет работает',
+    tell:'номер комнаты или место и модель телефона гостя'
+  },
+  {
+    id:'pc-no-internet', title:'Нет интернета на компьютере', device:'Компьютер',
+    depts:['office','reception'], minutes:2, checked:null, popular:false,
+    symptom:'Сайты не открываются, программы пишут «нет подключения».',
+    keywords:'компьютер комп пк интернет сеть не открывается нет подключения кабель',
+    steps:[
+      { t:'Проверьте у соседа', d:'Если интернета нет у всех, сразу звоните IT: перезагрузка не поможет.' },
+      { t:'Проверьте сетевой кабель', d:'У разъёма на компьютере должна мигать лампочка. Вытащите кабель и вставьте до щелчка.' },
+      { t:'Перезагрузите компьютер' }
+    ],
+    done:'Готово, если сайты открываются',
+    tell:'имя компьютера (наклейка на корпусе) и есть ли интернет у соседей'
+  }
+];
+/*CARDS_END*/
+
+/* ===================== ниже — движок ===================== */
+
+const ICONS = {
+  bell:'<path d="M4 18h16"/><path d="M6 18a6 6 0 0 1 12 0"/><path d="M12 9V7"/><path d="M10 7h4"/>',
+  bed:'<path d="M3 18V7"/><path d="M3 14h18v4"/><path d="M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.5"/>',
+  glass:'<path d="M7 4h10l-1 8a4 4 0 0 1-8 0z"/><path d="M12 16v4"/><path d="M8 20h8"/>',
+  monitor:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8"/><path d="M12 16v4"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+  chev:'<path d="M9 6l6 6-6 6"/>',
+  back:'<path d="M15 6l-6 6 6 6"/>',
+  up:'<path d="M6 15l6-6 6 6"/>',
+  down:'<path d="M6 9l6 6 6-6"/>',
+  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>',
+  check:'<path d="M5 12l5 5 9-10"/>',
+  alert:'<path d="M12 3l9 16H3z"/><path d="M12 10v4"/><path d="M12 17h.01"/>',
+  bolt:'<path d="M13 3L5 13h6l-1 8 8-10h-6z"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  bulb:'<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/>',
+  share:'<path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>'
+};
+const ic = (n, s=20, w=1.8) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]}</svg>`;
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* --- хранилище на устройстве (если недоступно — приложение работает, просто не помнит) --- */
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('dh:'+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('dh:'+k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem('dh:'+k); }catch(e){} }
+};
+
+/* Карточки: из кода, а если на этом устройстве их правили в редакторе — локальная версия */
+let CARDS = (() => {
+  const local = store.get('cards', null);
+  if (!Array.isArray(local) || !local.length) return DEFAULT_CARDS;
+  const gone = new Set(store.get('deleted', [])), have = new Set(local.map(c => c.id));
+  return [...local, ...DEFAULT_CARDS.filter(c => !have.has(c.id) && !gone.has(c.id))];
+})();
+const hasLocalEdits = () => store.get('cards', null) !== null;
+
+/* --- поиск: русские окончания, синонимы, опечатки --- */
+const STOP = new Set(['и','в','во','на','у','с','со','что','как','а','по','это','очень','просто','уже','опять','снова','мой','моя','меня','при','для','из','к','от','до','не','нет','ни','все','всё','работает','работают','работал','работать','сломался','сломалось','сломалась','сломан','проблема','помогите','почему','что-то','плохо']);
+const ENDS = ['иями','ями','ами','ого','его','ому','ему','ыми','ими','ает','яет','ует','ешь','ете','ишь','ите','ют','ут','ат','ят','ет','ит','ом','ем','ой','ей','ий','ый','ая','яя','ое','ее','ые','ие','ов','ев','ах','ях','ам','ям','ть','а','я','о','е','ы','и','у','ю','ь','й'];
+function stem(w){
+  if (w.length > 4 && (w.endsWith('ся') || w.endsWith('сь'))) w = w.slice(0,-2);
+  if (w.length <= 3) return w;
+  for (const e of ENDS) if (w.endsWith(e) && w.length - e.length >= 3) return w.slice(0, -e.length);
+  return w;
+}
+const words = s => String(s).toLowerCase().replace(/ё/g,'е').replace(/wi-?fi/g,'вайфай').replace(/[^a-zа-я0-9]+/g,' ').trim().split(' ').filter(Boolean);
+const SYN = [
+  ['телевизор','тв','телик','экран','телевизоры'],
+  ['принтер','печать','печатает','распечатать','распечатка','чек','чеки','лента'],
+  ['касса','кассы','симфони','simphony','pos','атол','фискал','фискальный'],
+  ['эквайринг','терминал','пинпад','сбер','оплата'],
+  ['браслет','браслеты','ключ','карта','карточка','пропуск','замок','дверь','открывает','открыть'],
+  ['телефон','трубка','радиотелефон','звонок','сигнал','связь','ловит'],
+  ['вайфай','wifi','интернет','сеть','инет','подключение','подключается'],
+  ['завис','висит','зависает','тормозит','глючит','застрял'],
+  ['компьютер','комп','пк','ноутбук','ноут'],
+  ['пропадает','отваливается','обрывается','теряет','пропал']
+];
+const SYNMAP = new Map();
+SYN.forEach((g, i) => g.forEach(w => SYNMAP.set(stem(w), i)));
+const expand = st => SYNMAP.has(st) ? SYN[SYNMAP.get(st)].map(stem) : [st];
+function lev(a, b, max){
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({length:b.length+1}, (_, i) => i);
+  for (let i = 1; i <= a.length; i++){
+    const cur = [i]; let best = i;
+    for (let j = 1; j <= b.length; j++){
+      cur[j] = Math.min(prev[j]+1, cur[j-1]+1, prev[j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+      if (cur[j] < best) best = cur[j];
+    }
+    if (best > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+let INDEX = [];
+const buildIndex = () => { INDEX = CARDS.map(c => {
+  const m = new Map();
+  const add = (txt, w) => words(txt).forEach(x => { const s = stem(x); if (!STOP.has(x)) m.set(s, Math.max(m.get(s) || 0, w)); });
+  add(c.title, 3); add(c.keywords, 2); add(c.symptom, 2); add(c.device, 2);
+  (c.steps || []).forEach(s => add(s.t + ' ' + (s.d || ''), 1));
+  return { card:c, terms:m };
+}); };
+buildIndex();
+function search(q){
+  const qs = words(q).filter(w => !STOP.has(w)).map(stem);
+  if (!qs.length) return [];
+  const out = [];
+  for (const doc of INDEX){
+    let score = 0, hit = 0;
+    for (const s of qs){
+      let best = 0;
+      for (const v of expand(s)){
+        const syn = v === s ? 1 : 0.6;
+        for (const [t, w] of doc.terms){
+          let k = 0;
+          if (t === v) k = 1;
+          else if (v.length >= 3 && t.startsWith(v)) k = .8;
+          else if (v.length >= 4){ const max = v.length >= 7 ? 2 : 1; if (lev(v, t, max) <= max) k = .6; }
+          if (k * w * syn > best) best = k * w * syn;
+        }
+      }
+      if (best > 0){ score += best; hit++; }
+    }
+    if (hit >= Math.ceil(qs.length / 2)) out.push({ card:doc.card, score: score + hit });
+  }
+  out.sort((a, b) => b.score - a.score);
+  const top = out.length ? out[0].score : 0;
+  return out.filter(r => r.score >= top * 0.6).map(r => r.card);
+}
+
+/* --- статистика, недавние, размер шрифта --- */
+const blankStat = () => ({ open:0, ok:0, no:0, fail:{} });
+function bump(id, key, step){
+  const st = store.get('stats', {}); st[id] = Object.assign(blankStat(), st[id]);
+  if (key === 'fail') st[id].fail[step] = (st[id].fail[step] || 0) + 1; else st[id][key]++;
+  store.set('stats', st);
+}
+let missTimer;
+function logMiss(q){
+  clearTimeout(missTimer);
+  missTimer = setTimeout(() => {
+    const list = store.get('misses', []);
+    if (list.length && list[list.length-1].q === q) return;
+    list.push({ q, at: new Date().toISOString().slice(0,16).replace('T',' ') });
+    store.set('misses', list.slice(-200));
+  }, 1500);
+}
+function remember(id){
+  const r = store.get('recent', []).filter(x => x !== id);
+  r.unshift(id); store.set('recent', r.slice(0, 3));
+}
+const app = document.getElementById('app');
+let bigText = store.get('big', false);
+app.classList.toggle('big', bigText);
+
+/* --- общие куски --- */
+const byId = id => CARDS.find(c => c.id === id);
+const deptName = id => (DEPTS.find(d => d.id === id) || {}).name || '';
+const MONTHS = ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'];
+const monthsAgo = ym => { const [y, m] = ym.split('-').map(Number); const n = new Date(); return (n.getFullYear() - y) * 12 + (n.getMonth() + 1 - m); };
+const isStale = c => c.checked && monthsAgo(c.checked) >= 6;
+const checkedText = c => { const [y, m] = c.checked.split('-'); return `Проверено IT · ${MONTHS[+m-1] || ''} ${y}`; };
+const cardRow = c => `<a class="row" href="#c-${c.id}">
+  <span class="tx"><span class="nm small">${esc(c.title)}</span><span class="sub">${esc(c.device)} · ~${c.minutes} мин</span></span>
+  <span class="chev">${ic('chev',18)}</span></a>`;
+const callBtn = (label='Связаться с IT') => CONFIG.itPhoneTel
+  ? `<a class="btn" href="tel:${esc(CONFIG.itPhoneTel)}">${ic('phone',19)}${label}</a>`
+  : `<a class="btn" href="#call">${ic('phone',19)}${label}</a>`;
+const footer = () => `<div class="foot"><span>${esc(CONFIG.hotel)} · v${esc(CONFIG.version)}</span><a href="#stats">Для IT</a></div>`;
+const backLink = (fallback, label) => `<a class="back" href="#${fallback}" data-back>${ic('back',16,2)}${esc(label)}</a>`;
+const topbar = () => `<div class="topbar"><span class="eyebrow brass">${esc(CONFIG.hotel)}</span>
+  <span class="r">${navigator.onLine === false ? '<span class="offline">без сети</span>' : ''}
+  <button class="size-btn" type="button" id="size" aria-pressed="${bigText}" aria-label="Крупный текст">Аа</button></span></div>`;
+
+/* --- экраны --- */
+let lastQuery = '';
+
+function viewHome(){
+  const popular = CARDS.filter(c => c.popular);
+  const recent = store.get('recent', []).map(byId).filter(Boolean);
+  app.innerHTML = `<div class="view">
+    ${topbar()}
+    <div><h1>Что-то <em>не&nbsp;работает?</em></h1>
+      <p class="lead">Большинство проблем решается за пару минут без звонка в IT.</p></div>
+    <div id="install"></div>
+    <label class="search" for="q">
+      <span class="brass" style="display:flex">${ic('search',20)}</span>
+      <input id="q" type="search" enterkeyhint="search" autocomplete="off" placeholder="Опишите проблему" aria-label="Поиск по инструкциям">
+      <button class="icon-btn" id="clear" type="button" aria-label="Очистить" hidden>${ic('x',18)}</button>
+    </label>
+    <div id="results" hidden></div>
+    <div id="browse" style="display:flex;flex-direction:column;gap:22px">
+      ${recent.length ? `<div><div class="eyebrow" style="margin-bottom:4px">Вы недавно открывали</div>
+        <div class="list">${recent.map(cardRow).join('')}</div></div>` : ''}
+      <div><div class="eyebrow" style="margin-bottom:4px">Ваш отдел</div>
+        <nav class="list">${DEPTS.map(d => `<a class="row" href="#d-${d.id}">
+          <span class="ic">${ic(d.icon,20,1.6)}</span>
+          <span class="tx"><span class="nm">${esc(d.name)}</span><span class="sub">${esc(d.hint)}</span></span>
+          <span class="chev">${ic('chev',18)}</span></a>`).join('')}</nav></div>
+      ${popular.length ? `<div style="display:flex;flex-direction:column;gap:10px"><div class="eyebrow">Часто ищут</div>
+        <div class="chips">${popular.map(c => `<a class="chip" href="#c-${c.id}">${esc(c.title)}</a>`).join('')}</div></div>` : ''}
+    </div>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">${callBtn()}<a class="btn ghost" href="#ticket">Написать заявку в IT</a></div>
+    ${footer()}</div>`;
+  const q = document.getElementById('q'), res = document.getElementById('results'),
+        browse = document.getElementById('browse'), clr = document.getElementById('clear');
+  const run = () => {
+    const v = q.value.trim(); lastQuery = q.value;
+    clr.hidden = !v;
+    if (!v){ res.hidden = true; browse.hidden = false; return; }
+    const found = search(v);
+    browse.hidden = true; res.hidden = false;
+    if (!found.length && v.length >= 3) logMiss(v);
+    res.innerHTML = found.length
+      ? `<div class="eyebrow" style="margin-bottom:4px">Нашлось: ${found.length}</div><div class="list">${found.map(cardRow).join('')}</div>
+         <a class="more-link" href="#suggest-new">Не то? Расскажите, как решили</a>`
+      : `<div class="empty">Такой инструкции пока нет. Позвоните в IT, а мы её добавим.</div>${callBtn()}
+         <a class="contrib" href="#suggest-new"><span class="contrib-ic">${ic('bulb',20)}</span><span class="tx"><b>Уже решили сами?</b><span>Расскажите как, и это станет инструкцией для всех</span></span><span class="chev">${ic('chev',18)}</span></a>`;
+  };
+  q.addEventListener('input', run);
+  clr.addEventListener('click', () => { q.value = ''; run(); q.focus(); });
+  if (lastQuery){ q.value = lastQuery; run(); }
+  renderInstall();
+}
+
+function viewDept(id){
+  const d = DEPTS.find(x => x.id === id); if (!d) return viewHome();
+  const list = CARDS.filter(c => c.depts.includes(id));
+  const urgent = list.filter(c => c.urgent), rest = list.filter(c => !c.urgent);
+  app.innerHTML = `<div class="view">
+    ${backLink('home', 'Все отделы')}
+    <div class="card-head"><span class="eyebrow brass">Отдел</span><h2>${esc(d.name)}</h2></div>
+    ${urgent.length ? `<div><div class="eyebrow" style="margin-bottom:4px">Останавливает работу</div><div class="list">${urgent.map(cardRow).join('')}</div></div>` : ''}
+    ${rest.length ? `<div>${urgent.length ? '<div class="eyebrow" style="margin-bottom:4px">Остальное</div>' : ''}<div class="list">${rest.map(cardRow).join('')}</div></div>` : ''}
+    ${!list.length ? '<div class="empty">Инструкций пока нет.</div>' : ''}
+    <div style="margin-top:auto">${callBtn('Не нашли? Связаться с IT')}</div>
+    ${footer()}</div>`;
+}
+
+function cardBody(c){
+  return `
+    <div class="card-head">
+      <div class="meta"><span class="eyebrow brass">${esc(c.device)} · ~${c.minutes} мин</span>
+        ${!c.checked ? '<span class="pill draft">Черновик</span>' : isStale(c) ? '<span class="pill stale">Пора перепроверить</span>' : ''}</div>
+      <h2>${esc(c.title)}</h2><p>${esc(c.symptom)}</p>
+    </div>
+    ${c.urgent ? `<div class="urgent" role="note">${ic('bolt',20)}<div>Если гости ждут или касса стоит, сразу звоните в IT, а шаги делайте параллельно.</div></div>` : ''}
+    ${c.fix ? `<div class="fix" role="note">${ic('check',20,2.2)}<div><b>${esc(c.fix.title)}</b><span>${esc(c.fix.text)}</span></div></div>` : ''}
+    <div class="progress" aria-hidden="true"><span id="pg">0 из ${c.steps.length}</span><span class="bar"><i id="pgbar" style="width:0%"></i></span></div>
+    <ol class="steps" id="steps">
+      ${c.steps.map((s, i) => `<li class="step" data-i="${i}">
+        <button class="stepbtn" type="button" aria-pressed="false">
+          <span class="num">${i+1}</span>
+          <span class="body"><span class="t">${esc(s.t)}</span>${s.d ? `<span class="d">${esc(s.d)}</span>` : ''}</span>
+          <span class="tick">${ic('check',14,3)}</span>
+        </button>
+        ${s.photo ? `<a class="photo full" href="${esc(s.photo)}" target="_blank" rel="noopener" aria-label="Открыть картинку крупно"><img src="${esc(s.photo)}" alt="${esc(s.t)}" loading="lazy"></a>`
+          : s.photoHint ? `<span class="photo ph full">[${esc(s.photoHint)}]</span>` : ''}</li>`).join('')}
+      ${c.done ? `<li class="final"><span class="num" style="color:var(--ok)">${ic('check',26)}</span><span class="t" style="font-weight:700">${esc(c.done)}</span></li>` : ''}
+    </ol>
+    ${(c.notes || []).length ? `<div class="notes">${c.notes.map(n => `<div class="notebox"><span class="eyebrow brass">${esc(n.title)}</span><p>${esc(n.text)}</p></div>`).join('')}</div>` : ''}
+    ${(c.alts || []).length ? `<div class="alts"><span class="eyebrow brass">Ещё помогало коллегам</span>${c.alts.map(a => `<div class="alt"><p>${esc(a.text)}</p>${a.by ? `<span>${esc(a.by)}</span>` : ''}</div>`).join('')}</div>` : ''}
+    ${c.warn ? `<div class="warn" role="note">${ic('alert',20)}<div>${esc(c.warn)}</div></div>` : ''}
+    ${(c.credits || []).length ? `<div class="credits">${ic('bulb',16)}<span>Инструкцию дополнили: ${esc(c.credits.join(' · '))}</span></div>` : ''}`;
+}
+function wireSteps(){
+  const list = document.getElementById('steps'); if (!list) return;
+  const items = [...list.querySelectorAll('.step')];
+  const upd = () => {
+    const n = items.filter(x => x.classList.contains('done')).length;
+    document.getElementById('pg').textContent = `${n} из ${items.length}`;
+    document.getElementById('pgbar').style.width = (items.length ? n / items.length * 100 : 0) + '%';
+  };
+  items.forEach(li => li.querySelector('button').addEventListener('click', e => {
+    const on = li.classList.toggle('done');
+    e.currentTarget.setAttribute('aria-pressed', on);
+    upd();
+  }));
+}
+
+function viewCard(id){
+  const c = byId(id); if (!c) return viewHome();
+  bump(id, 'open'); remember(id);
+  app.innerHTML = `<article class="view">
+    ${backLink('d-' + c.depts[0], 'Назад')}
+    ${cardBody(c)}
+    ${contribBlock(c)}
+    <div id="fb" style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+      <div class="actions">
+        <button class="btn" type="button" id="ok">Помогло</button>
+        <button class="btn ghost" type="button" id="no">Не помогло</button>
+      </div>
+      ${c.checked ? `<div class="note">${esc(checkedText(c))}</div>` : ''}
+    </div>
+    ${footer()}</article>`;
+  wireSteps();
+  const fb = document.getElementById('fb');
+  document.getElementById('ok').onclick = () => { bump(id,'ok'); fb.innerHTML = `<div class="thanks">${ic('check',20,2)}Отлично! Отметка помогает нам улучшать инструкции.</div><a class="btn ghost" href="#home">На главную</a>`; };
+  document.getElementById('no').onclick = () => {
+    bump(id,'no');
+    fb.innerHTML = `<div class="panel"><span class="eyebrow">На каком шаге не получилось?</span>
+      <div class="chips">${c.steps.map((s, i) => `<button class="chip" type="button" data-s="${i+1}">Шаг ${i+1}</button>`).join('')}
+      <button class="chip" type="button" data-s="all">Сделал всё, не помогло</button></div></div>`;
+    fb.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { bump(id, 'fail', b.dataset.s); fb.innerHTML = callPanel(c.tell, `ticket-${id}--${b.dataset.s}`); wireCopy(); });
+  };
+}
+
+function callPanel(tell, ticket='ticket'){
+  return `<div class="panel">
+    <span class="eyebrow">Звоните в IT</span>
+    <span class="big">${esc(CONFIG.itPhone)}</span>
+    ${tell ? `<span style="font-size:14px;color:var(--ink-2)">Скажите: ${esc(tell)}.</span>` : ''}
+    <div class="actions">
+      ${CONFIG.itPhoneTel ? `<a class="btn small" href="tel:${esc(CONFIG.itPhoneTel)}">${ic('phone',16)}Позвонить</a>` : ''}
+      <button class="btn small ghost" type="button" id="copy">Скопировать номер</button>
+    </div>
+    <div class="actions"><a class="btn small ghost" href="#${ticket}">Написать заявку</a><a class="btn small ghost" href="#home">На главную</a></div></div>`;
+}
+function copyText(text, btn, okLabel){
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.className = 'code'; ta.style.minHeight = '120px'; ta.value = text; ta.readOnly = true;
+    const old = document.getElementById('copy-fallback'); if (old) old.remove();
+    ta.id = 'copy-fallback'; ta.style.width = '100%';
+    (btn.closest('.actions') || btn).insertAdjacentElement('afterend', ta); ta.focus(); ta.select();
+    btn.textContent = 'Выделите текст и скопируйте';
+  };
+  try { navigator.clipboard.writeText(text).then(() => { btn.textContent = okLabel; }).catch(fallback); }
+  catch(e){ fallback(); }
+}
+function wireCopy(){ const b = document.getElementById('copy'); if (b) b.onclick = () => copyText(CONFIG.itPhone, b, 'Скопировано'); }
+
+function viewCall(){
+  app.innerHTML = `<div class="view">
+    ${backLink('home', 'Назад')}
+    <div class="card-head"><h2>Связаться <em>с&nbsp;IT</em></h2><p>Скажите, что случилось, где вы и что видно на экране.</p></div>
+    ${callPanel('')}${footer()}</div>`;
+  wireCopy();
+}
+
+/* --- раздел для IT --- */
+function report(){
+  const st = store.get('stats', {}), miss = store.get('misses', []);
+  const d = new Date().toLocaleDateString('ru-RU');
+  const lines = [`DuHelp · отчёт с телефона · ${d}`, ''];
+  CARDS.forEach(c => {
+    const s = Object.assign(blankStat(), st[c.id]); if (!s.open) return;
+    const f = Object.entries(s.fail).map(([k, v]) => (k === 'all' ? 'всё сделали' : 'шаг ' + k) + ': ' + v).join(', ');
+    lines.push(`${c.title}: открыли ${s.open}, помогло ${s.ok}, не помогло ${s.no}${f ? ' (' + f + ')' : ''}`);
+  });
+  if (miss.length){ lines.push('', 'Искали и не нашли:'); miss.slice(-30).forEach(m => lines.push('· ' + m.q)); }
+  return lines.join('\n');
+}
+function viewStats(){
+  const st = store.get('stats', {}), miss = store.get('misses', []);
+  const rows = CARDS.map(c => ({ c, s: Object.assign(blankStat(), st[c.id]) })).sort((a,b) => b.s.open - a.s.open);
+  const total = rows.reduce((n, r) => n + r.s.ok, 0);
+  const todo = CARDS.filter(c => !c.checked || isStale(c));
+  app.innerHTML = `<div class="view">
+    ${backLink('home', 'Назад')}
+    <div class="card-head"><span class="eyebrow brass">Для IT</span><h2>Статистика</h2>
+      <p>Считается на этом телефоне. Помогло всего: <b>${total}</b>.</p></div>
+    <div class="actions">
+      <button class="btn small" type="button" id="rep">Скопировать отчёт</button>
+      <a class="btn small ghost" href="#admin">Редактор карточек</a>
+    </div>
+    ${todo.length ? `<div><div class="eyebrow">Проверить на месте</div>
+      ${todo.map(c => `<div class="stat"><span class="q">${esc(c.title)}${!c.checked ? '<span class="pill draft">Черновик</span>' : '<span class="pill stale">Старше 6 мес.</span>'}</span><a href="#c-${c.id}">Открыть</a></div>`).join('')}</div>` : ''}
+    <div><div class="eyebrow">Карточки · открыли / помогло / нет</div>
+      ${rows.map(r => `<div class="stat"><span class="q">${esc(r.c.title)}</span><b>${r.s.open} / ${r.s.ok} / ${r.s.no}</b><a href="#qr-${r.c.id}">QR</a></div>`).join('')}</div>
+    <div><div class="eyebrow">Искали и не нашли</div>
+      ${miss.length ? miss.slice().reverse().map(m => `<div class="stat"><span class="q">${esc(m.q)}</span><span style="font-size:13px;color:var(--muted);flex:none">${esc(m.at)}</span></div>`).join('') : '<div class="empty">Пока пусто.</div>'}</div>
+    <button class="btn ghost" type="button" id="reset">Очистить статистику</button>
+    ${footer()}</div>`;
+  const rep = document.getElementById('rep');
+  rep.onclick = () => copyText(report(), rep, 'Отчёт скопирован');
+  const r = document.getElementById('reset');
+  r.onclick = () => {
+    if (r.dataset.armed){ store.set('stats', {}); store.set('misses', []); viewStats(); return; }
+    r.dataset.armed = '1'; r.textContent = 'Нажмите ещё раз, чтобы очистить';
+  };
+}
+
+/* --- редактор карточек (Для IT → Редактор). Правки хранятся на этом устройстве, экспорт — в cards.json --- */
+const slug = s => { const t = {а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'c',ч:'ch',ш:'sh',щ:'sch',ы:'y',э:'e',ю:'yu',я:'ya',ь:'',ъ:''};
+  return String(s).toLowerCase().split('').map(ch => t[ch] ?? ch).join('').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0, 40) || 'card'; };
+const uniqueId = base => { let id = base, n = 2; while (byId(id)) id = `${base}-${n++}`; return id; };
+const nowYM = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; };
+let flash = '';
+function saveCards(list){
+  if (!store.set('cards', list)) return false;
+  CARDS = list; buildIndex(); return true;
+}
+function validCards(x){
+  return Array.isArray(x) && x.length && x.every(c => c && typeof c.id === 'string' && typeof c.title === 'string' && Array.isArray(c.steps) && Array.isArray(c.depts));
+}
+
+function viewAdmin(){
+  const msg = flash; flash = '';
+  const local = hasLocalEdits();
+  app.innerHTML = `<div class="view">
+    ${backLink('stats', 'Для IT')}
+    <div class="card-head"><span class="eyebrow brass">Для IT</span><h2>Редактор</h2>
+      <p>${local ? 'На этом устройстве есть правки. Чтобы они попали ко всем, скачайте cards.json, положите в DuHelp/src и запустите build.py.' : 'Сейчас показаны карточки из кода. Правки сохранятся на этом устройстве.'}</p></div>
+    ${msg ? `<div class="thanks">${ic('check',20,2)}${esc(msg)}</div>` : ''}
+    <a class="btn" href="#edit-new">Новая карточка</a>
+    <div class="list">${CARDS.map(c => `<a class="row" href="#edit-${c.id}">
+      <span class="tx"><span class="nm small">${esc(c.title)}</span>
+        <span class="sub">${esc(c.depts.map(deptName).join(', '))} · шагов: ${c.steps.length}${c.steps.some(s => s.photo) ? ' · есть фото' : ''}</span>
+        <span class="meta" style="margin-top:4px">${!c.checked ? '<span class="pill draft">Черновик</span>' : isStale(c) ? '<span class="pill stale">Пора перепроверить</span>' : ''}${c.urgent ? '<span class="pill stale">Срочная</span>' : ''}</span></span>
+      <span class="chev">${ic('chev',18)}</span></a>`).join('')}</div>
+    ${importPanel()}
+    <div class="panel">
+      <span class="eyebrow">Файл с карточками</span>
+      <div class="actions">
+        <button class="btn small" type="button" id="dl">Скачать cards.json</button>
+        <button class="btn small ghost" type="button" id="cpj">Скопировать JSON</button>
+      </div>
+      <label class="btn small ghost" for="imp">Загрузить cards.json</label>
+      <input id="imp" type="file" accept=".json,application/json" hidden>
+      ${local ? '<button class="btn small ghost" type="button" id="rst">Сбросить правки к версии из кода</button>' : ''}
+      <span id="io" class="note" aria-live="polite"></span>
+    </div>
+    ${footer()}</div>`;
+  const io = document.getElementById('io');
+  wireImport();
+  const json = () => JSON.stringify(CARDS, null, 2);
+  document.getElementById('dl').onclick = () => {
+    try {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([json()], { type:'application/json' }));
+      a.download = 'cards.json'; document.body.appendChild(a); a.click(); a.remove();
+      io.textContent = 'Если файл не скачался, нажмите «Скопировать JSON» и сохраните текст как cards.json.';
+    } catch(e){ io.textContent = 'Скачивание недоступно. Нажмите «Скопировать JSON».'; }
+  };
+  const cpj = document.getElementById('cpj'); cpj.onclick = () => copyText(json(), cpj, 'JSON скопирован');
+  document.getElementById('imp').onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      let data; try { data = JSON.parse(r.result); } catch(err){ io.textContent = 'Это не JSON. Проверьте файл.'; return; }
+      if (!validCards(data)){ io.textContent = 'В файле нет карточек в нужном формате.'; return; }
+      if (!saveCards(data)){ io.textContent = 'Не хватило памяти телефона. Уменьшите количество фото.'; return; }
+      flash = `Загружено карточек: ${data.length}`; viewAdmin();
+    };
+    r.readAsText(f);
+  };
+  const rst = document.getElementById('rst');
+  if (rst) rst.onclick = () => {
+    if (!rst.dataset.armed){ rst.dataset.armed = '1'; rst.textContent = 'Нажмите ещё раз: правки на устройстве удалятся'; return; }
+    store.del('cards'); store.del('deleted'); CARDS = DEFAULT_CARDS; buildIndex(); flash = 'Правки сброшены'; viewAdmin();
+  };
+}
+
+/* сжатие фото: длинная сторона до 1000 px, JPEG — чтобы влезало в память телефона */
+function compressPhoto(file){
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onerror = reject;
+    fr.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const k = Math.min(1, 1000 / Math.max(img.width, img.height));
+        const cv = document.createElement('canvas');
+        cv.width = Math.round(img.width * k); cv.height = Math.round(img.height * k);
+        cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+        resolve(cv.toDataURL('image/jpeg', 0.78));
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+function viewEdit(id){
+  const isNew = id === 'new';
+  const src = isNew ? null : byId(id);
+  if (!isNew && !src) return viewAdmin();
+  const ed = src ? JSON.parse(JSON.stringify(src)) : { id:'', title:'', device:'', depts:[], minutes:2, checked:null, popular:false, symptom:'', keywords:'', steps:[{ t:'' }], done:'', warn:'', tell:'' };
+  const tip = applyPrefill(ed, isNew, id);
+  const val = k => esc(ed[k] ?? '');
+  app.innerHTML = `<div class="view">
+    ${backLink('admin', 'Редактор')}
+    <div class="card-head"><span class="eyebrow brass">${isNew ? 'Новая карточка' : 'Правка карточки'}</span><h2>${isNew ? 'Новая <em>карточка</em>' : esc(ed.title)}</h2></div>
+    ${tip}
+    <form id="f" style="display:flex;flex-direction:column;gap:16px" novalidate>
+      <div class="field"><label for="e-title">Проблема, как её назовёт сотрудник</label><input id="e-title" data-k="title" value="${val('title')}" placeholder="Не работает пульт от телевизора"></div>
+      <div class="field"><label for="e-device">Устройство</label><input id="e-device" data-k="device" value="${val('device')}" placeholder="Телевизор"></div>
+      <div class="field"><label>Отделы</label><div class="checks">${DEPTS.map(d => `<label><input type="checkbox" data-dept="${d.id}" ${ed.depts.includes(d.id) ? 'checked' : ''}>${esc(d.name)}</label>`).join('')}</div></div>
+      <div class="field"><label for="e-symptom">Что видит сотрудник</label><input id="e-symptom" data-k="symptom" value="${val('symptom')}"></div>
+      <div class="field"><label for="e-keywords">Как ещё могут искать</label><input id="e-keywords" data-k="keywords" value="${val('keywords')}"><span class="hint">Сленг и опечатки тоже сюда.</span></div>
+      <div class="field"><label>Шаги</label><div id="steps-ed" style="display:flex;flex-direction:column;gap:12px"></div>
+        <button class="btn small ghost" type="button" id="add-step">Добавить шаг</button></div>
+      <div class="field"><label for="e-done">Как понять, что готово</label><input id="e-done" data-k="done" value="${val('done')}"></div>
+      <div class="field"><label for="e-warn">Чего делать нельзя</label><input id="e-warn" data-k="warn" value="${val('warn')}"></div>
+      <div class="field"><label for="e-tell">Что сказать IT, если не помогло</label><input id="e-tell" data-k="tell" value="${val('tell')}"></div>
+      <div class="field"><label for="e-min">Сколько минут займёт</label><input id="e-min" data-k="minutes" type="number" min="1" max="30" inputmode="numeric" value="${val('minutes')}"></div>
+      <div class="field"><label for="e-alts">Ещё помогало коллегам</label><textarea id="e-alts" placeholder="Способ | Имя, отдел">${esc((ed.alts || []).map(a => a.by ? a.text + ' | ' + a.by : a.text).join('\n'))}</textarea><span class="hint">Один способ на строку, автор через «|».</span></div>
+      <div class="field"><label for="e-credits">Инструкцию дополнили</label><input id="e-credits" value="${esc((ed.credits || []).join('; '))}" placeholder="Мария, HK; Олег, бар"><span class="hint">Через точку с запятой. Видно внизу карточки.</span></div>
+      <div class="checks">
+        <label><input type="checkbox" data-flag="urgent" ${ed.urgent ? 'checked' : ''}>Останавливает работу</label>
+        <label><input type="checkbox" data-flag="popular" ${ed.popular ? 'checked' : ''}>В «Часто ищут»</label>
+        <label><input type="checkbox" id="e-checked" ${ed.checked ? 'checked' : ''}>Проверил на месте${ed.checked ? ' (' + esc(ed.checked) + ')' : ''}</label>
+      </div>
+    </form>
+    <span id="err" class="note" style="color:var(--urgent-ink)" aria-live="polite"></span>
+    <div class="actions"><button class="btn" type="button" id="save">Сохранить</button><button class="btn ghost" type="button" id="pvb">Предпросмотр</button></div>
+    <div id="pv"></div>
+    ${!isNew ? `<div class="actions"><button class="btn small ghost" type="button" id="dup">Дублировать</button><button class="btn small ghost" type="button" id="del">Удалить</button></div>` : ''}
+    ${footer()}</div>`;
+
+  const stepsBox = document.getElementById('steps-ed');
+  const renderSteps = () => {
+    stepsBox.innerHTML = ed.steps.map((s, i) => `<div class="panel" data-i="${i}" style="gap:10px;box-shadow:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+        <span class="num" style="font-size:28px">${i+1}</span>
+        <span style="display:flex;gap:4px">
+          <button class="icon-btn" type="button" data-act="up" aria-label="Шаг выше" ${i === 0 ? 'disabled' : ''}>${ic('up',18)}</button>
+          <button class="icon-btn" type="button" data-act="down" aria-label="Шаг ниже" ${i === ed.steps.length-1 ? 'disabled' : ''}>${ic('down',18)}</button>
+          <button class="icon-btn" type="button" data-act="rm" aria-label="Удалить шаг">${ic('x',18)}</button>
+        </span></div>
+      <div class="field"><label for="s-t-${i}">Действие</label><input id="s-t-${i}" data-st="t" value="${esc(s.t)}" placeholder="Выключите телевизор из розетки"></div>
+      <div class="field"><label for="s-d-${i}">Пояснение</label><input id="s-d-${i}" data-st="d" value="${esc(s.d || '')}"></div>
+      ${s.photo ? `<span class="photo"><img src="${esc(s.photo)}" alt="Фото к шагу ${i+1}"></span>` : ''}
+      <div class="actions">
+        <label class="btn small ghost" for="s-p-${i}">${s.photo ? 'Заменить фото' : 'Добавить фото'}</label>
+        ${s.photo ? `<button class="btn small ghost" type="button" data-act="nophoto">Убрать фото</button>` : ''}
+      </div>
+      <input id="s-p-${i}" type="file" accept="image/*" data-photo hidden>
+    </div>`).join('');
+  };
+  renderSteps();
+
+  const f = document.getElementById('f');
+  f.addEventListener('submit', e => e.preventDefault());
+  f.addEventListener('input', e => {
+    const t = e.target;
+    if (t.id === 'e-alts') ed.alts = t.value.split('\n').map(l => l.trim()).filter(Boolean).map(l => { const [text, by] = l.split('|').map(x => x.trim()); return by ? { text, by } : { text }; });
+    if (t.id === 'e-credits') ed.credits = t.value.split(';').map(x => x.trim()).filter(Boolean);
+    if (t.dataset.k) ed[t.dataset.k] = t.dataset.k === 'minutes' ? Math.max(1, parseInt(t.value, 10) || 1) : t.value;
+    const box = t.closest('[data-i]');
+    if (box && t.dataset.st){ const s = ed.steps[+box.dataset.i]; if (t.value) s[t.dataset.st] = t.value; else delete s[t.dataset.st]; if (t.dataset.st === 't') s.t = t.value; }
+  });
+  f.addEventListener('change', async e => {
+    const t = e.target;
+    if (t.dataset.dept) ed.depts = [...f.querySelectorAll('[data-dept]:checked')].map(x => x.dataset.dept);
+    if (t.dataset.flag){ if (t.checked) ed[t.dataset.flag] = true; else delete ed[t.dataset.flag]; }
+    if (t.id === 'e-checked') ed.checked = t.checked ? (src && src.checked && !isStale(src) ? src.checked : nowYM()) : null;
+    if (t.dataset.photo !== undefined && t.files[0]){
+      const i = +t.closest('[data-i]').dataset.i;
+      try { ed.steps[i].photo = await compressPhoto(t.files[0]); delete ed.steps[i].photoHint; }
+      catch(err){ document.getElementById('err').textContent = 'Не получилось открыть фото. Попробуйте другое.'; }
+      renderSteps();
+    }
+  });
+  stepsBox.addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const i = +b.closest('[data-i]').dataset.i, st = ed.steps;
+    if (b.dataset.act === 'up' && i > 0) [st[i-1], st[i]] = [st[i], st[i-1]];
+    if (b.dataset.act === 'down' && i < st.length-1) [st[i+1], st[i]] = [st[i], st[i+1]];
+    if (b.dataset.act === 'rm'){ st.splice(i, 1); if (!st.length) st.push({ t:'' }); }
+    if (b.dataset.act === 'nophoto') delete st[i].photo;
+    renderSteps();
+  });
+  document.getElementById('add-step').onclick = () => {
+    if (ed.steps.length >= 5) document.getElementById('err').textContent = 'Больше 5 шагов персонал не дочитает. Лучше разбить на две карточки.';
+    ed.steps.push({ t:'' }); renderSteps();
+    const last = document.getElementById(`s-t-${ed.steps.length-1}`); if (last) last.focus();
+  };
+  const clean = () => {
+    const c = JSON.parse(JSON.stringify(ed));
+    c.title = c.title.trim(); c.steps = c.steps.filter(s => s.t && s.t.trim());
+    if (!c.depts.length) c.depts = ['reception'];
+    if (!(c.alts || []).length) delete c.alts;
+    if (!(c.credits || []).length) delete c.credits;
+    ['done','warn','tell','device','symptom','keywords'].forEach(k => { if (typeof c[k] === 'string') c[k] = c[k].trim(); if (c[k] === '' && ['done','warn','tell'].includes(k)) delete c[k]; });
+    return c;
+  };
+  document.getElementById('pvb').onclick = () => {
+    const c = clean();
+    document.getElementById('pv').innerHTML = c.steps.length ? `<div class="panel" style="gap:18px">${cardBody(c)}</div>` : '';
+    wireSteps();
+  };
+  document.getElementById('save').onclick = () => {
+    const c = clean(), err = document.getElementById('err');
+    if (!c.title){ err.textContent = 'Напишите, как называется проблема.'; document.getElementById('e-title').focus(); return; }
+    if (!c.steps.length){ err.textContent = 'Добавьте хотя бы один шаг.'; return; }
+    if (isNew) c.id = uniqueId(slug(c.title));
+    const list = isNew ? [...CARDS, c] : CARDS.map(x => x.id === c.id ? c : x);
+    if (!saveCards(list)){ err.textContent = 'Не хватило памяти телефона. Уберите часть фото или снимайте с меньшим разрешением.'; return; }
+    flash = `Сохранено: ${c.title}`; location.hash = 'admin';
+  };
+  const dup = document.getElementById('dup');
+  if (dup) dup.onclick = () => {
+    const c = clean(); c.id = uniqueId(c.id + '-copy'); c.title += ' (копия)'; c.checked = null;
+    if (!saveCards([...CARDS, c])){ document.getElementById('err').textContent = 'Не хватило памяти телефона.'; return; }
+    location.hash = 'edit-' + c.id;
+  };
+  const del = document.getElementById('del');
+  if (del) del.onclick = () => {
+    if (!del.dataset.armed){ del.dataset.armed = '1'; del.textContent = 'Точно удалить?'; return; }
+    store.set('deleted', [...new Set([...store.get('deleted', []), ed.id])]);
+    saveCards(CARDS.filter(x => x.id !== ed.id)); flash = `Удалено: ${ed.title}`; location.hash = 'admin';
+  };
+}
+
+/* --- заявка в IT: собирает понятное сообщение, отправка через Telegram или копированием --- */
+function viewTicket(arg){
+  const parts = (arg || '').split('--');
+  const c = parts[0] ? byId(parts[0]) : null, step = parts[1] || '';
+  const me = store.get('me', {});
+  const what = c ? `${c.title}. ${step === 'all' ? 'Сделал все шаги, не помогло.' : step ? `Не получилось на шаге ${step}: ${c.steps[+step-1] ? c.steps[+step-1].t : ''}.` : ''}`.trim() : '';
+  app.innerHTML = `<div class="view">
+    ${backLink(c ? 'c-' + c.id : 'home', 'Назад')}
+    <div class="card-head"><span class="eyebrow brass">Заявка</span><h2>Написать <em>в&nbsp;IT</em></h2>
+      <p>Заполните, что знаете. Сообщение соберётся само, останется отправить.</p></div>
+    <form id="tk" style="display:flex;flex-direction:column;gap:16px" novalidate>
+      <div class="field"><label for="t-where">Где</label><input id="t-where" value="${esc(me.where || '')}" placeholder="Номер комнаты, бар, ресепшн ФО2"></div>
+      <div class="field"><label for="t-what">Что случилось</label><textarea id="t-what" placeholder="Что сломалось и что видно на экране">${esc(what)}</textarea>${c && c.tell ? `<span class="hint">Укажите: ${esc(c.tell)}.</span>` : ''}</div>
+      <div class="field"><label>Насколько срочно</label><div class="checks">
+        <label><input type="radio" name="urg" value="Работа стоит, гости ждут" ${c && c.urgent ? 'checked' : ''}>Работа стоит</label>
+        <label><input type="radio" name="urg" value="Можно в течение дня" ${c && c.urgent ? '' : 'checked'}>Можно подождать</label></div></div>
+      <div class="field"><label for="t-who">Кто пишет</label><input id="t-who" value="${esc(me.who || '')}" placeholder="Имя, отдел"><span class="hint">Запомнится на этом телефоне.</span></div>
+    </form>
+    <div class="eyebrow">Сообщение</div>
+    <div class="panel"><div id="t-out" style="white-space:pre-wrap;font-size:15px"></div></div>
+    <div class="actions"><a class="btn small" id="t-tg" href="#" target="_blank" rel="noopener">Отправить в Telegram</a><button class="btn small ghost" type="button" id="t-cp">Скопировать</button></div>
+    <div id="t-done" hidden class="thanks">${ic('check',20,2)}Заявка готова. IT получит её, как только вы отправите сообщение.</div>
+    <a class="btn ghost" href="#home">Готово, на главную</a>
+    <div class="note">Срочно? Звоните: <b style="user-select:all">${esc(CONFIG.itPhone)}</b></div>
+    ${footer()}</div>`;
+  const g = id => document.getElementById(id);
+  const upd = () => {
+    const urg = (document.querySelector('[name="urg"]:checked') || {}).value || '';
+    const text = [`Заявка в IT · ${CONFIG.hotel}`, `Где: ${g('t-where').value.trim() || '—'}`, `Что: ${g('t-what').value.trim() || '—'}`, `Срочность: ${urg}`, `От: ${g('t-who').value.trim() || '—'}`].join('\n');
+    g('t-out').textContent = text;
+    g('t-tg').href = 'https://t.me/share/url?url=' + encodeURIComponent(text);
+    store.set('me', { who: g('t-who').value, where: g('t-where').value });
+    return text;
+  };
+  g('tk').addEventListener('input', upd); g('tk').addEventListener('change', upd); g('tk').addEventListener('submit', e => e.preventDefault());
+  upd();
+  g('t-cp').onclick = () => { copyText(upd(), g('t-cp'), 'Скопировано'); g('t-done').hidden = false; };
+  g('t-tg').addEventListener('click', () => { g('t-done').hidden = false; });
+}
+
+/* --- предложения от персонала: «Знаете способ лучше?» → сообщение IT с кодом → импорт в редактор --- */
+const KINDS = { other:'Помогло другое', fix:'Поправить шаг', add:'Добавить шаг', new:'Новая проблема' };
+const encSug = o => 'DH1.' + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+const decSug = s => { const m = String(s).replace(/\s+/g, '').match(/DH1\.([A-Za-z0-9+/=]+)/); if (!m) return null; try { return JSON.parse(decodeURIComponent(escape(atob(m[1])))); } catch(e){ return null; } };
+let pendingPrefill = null;
+
+function viewSuggest(arg){
+  const isNew = !arg || arg === 'new';
+  const c = isNew ? null : byId(arg);
+  if (!isNew && !c) return viewHome();
+  const me = store.get('me', {});
+  const kinds = isNew ? ['new'] : ['other','fix','add'];
+  app.innerHTML = `<div class="view">
+    ${backLink(c ? 'c-' + c.id : 'home', 'Назад')}
+    <div class="card-head"><span class="eyebrow brass">Пополнить базу</span>
+      <h2>${c ? 'Знаете способ <em>лучше?</em>' : 'Расскажите, <em>как решили</em>'}</h2>
+      <p>${c ? `«${esc(c.title)}». ` : ''}IT проверит ваш способ и добавит его в инструкцию, а ваше имя появится в карточке.</p></div>
+    <form id="sg" style="display:flex;flex-direction:column;gap:18px" novalidate>
+      ${kinds.length > 1 ? `<div class="field"><label>Что хотите предложить</label><div class="seg">${kinds.map((k, i) => `<label><input type="radio" name="kind" value="${k}" ${i === 0 ? 'checked' : ''}><span>${KINDS[k]}</span></label>`).join('')}</div></div>` : ''}
+      ${isNew ? `<div class="field"><label for="sg-title">Что сломалось</label><input id="sg-title" value="${esc(lastQuery.trim())}" placeholder="Не включается кофемашина в лобби"></div>` : ''}
+      ${c ? `<div class="field" id="sg-steps" hidden><label>Какой шаг</label><div class="seg">${c.steps.map((s, i) => `<label><input type="radio" name="step" value="${i+1}" ${i === 0 ? 'checked' : ''}><span>Шаг ${i+1}</span></label>`).join('')}</div><span class="hint" id="sg-steptext"></span></div>` : ''}
+      <div class="field"><label for="sg-text" id="sg-label">${isNew ? 'Как вы это решили' : 'Что вы сделали'}</label>
+        <textarea id="sg-text" placeholder="Каждое действие с новой строки"></textarea>
+        <span class="hint">Пишите так, как объяснили бы коллеге. Фото можно отправить следом в тот же чат.</span></div>
+      <div class="field"><label for="sg-who">Кто предлагает</label><input id="sg-who" value="${esc(me.who || '')}" placeholder="Имя, отдел"><span class="hint">Запомнится на этом телефоне.</span></div>
+    </form>
+    <div class="eyebrow">Сообщение для IT</div>
+    <div class="panel"><div id="sg-out" class="msg"></div><span class="hint">В конце добавится служебный код, по нему IT добавит ваш способ в один клик.</span></div>
+    <span id="sg-err" class="note" style="color:var(--urgent-ink)" aria-live="polite"></span>
+    <div class="actions"><a class="btn small" id="sg-tg" href="#" target="_blank" rel="noopener">Отправить в Telegram</a><button class="btn small ghost" type="button" id="sg-cp">Скопировать</button></div>
+    <div id="sg-done" hidden class="thanks">${ic('check',20,2)}Спасибо! Когда IT проверит способ, он появится в инструкции с вашим именем.</div>
+    <a class="btn ghost" href="#${c ? 'c-' + c.id : 'home'}">${c ? 'Вернуться к инструкции' : 'На главную'}</a>
+    ${footer()}</div>`;
+  const g = id => document.getElementById(id);
+  const data = () => {
+    const kind = (document.querySelector('[name="kind"]:checked') || {}).value || 'new';
+    const step = kind === 'fix' ? +((document.querySelector('[name="step"]:checked') || {}).value || 1) : null;
+    const lines = g('sg-text').value.split('\n').map(x => x.trim()).filter(Boolean);
+    return { v:1, kind, card: c ? c.id : null, title: isNew ? g('sg-title').value.trim() : c.title, step, lines, by: g('sg-who').value.trim(), at: new Date().toISOString().slice(0,10) };
+  };
+  const upd = () => {
+    const d = data();
+    if (c){
+      g('sg-steps').hidden = d.kind !== 'fix';
+      g('sg-label').textContent = d.kind === 'fix' ? 'Как сделать этот шаг правильно' : d.kind === 'add' ? 'Какой шаг добавить' : 'Что вы сделали';
+      g('sg-steptext').textContent = d.step ? 'Сейчас написано: ' + c.steps[d.step-1].t : '';
+    }
+    const head = d.kind === 'new' ? `Новая проблема: ${d.title || '—'}` : `${KINDS[d.kind]}${d.step ? ' (шаг ' + d.step + ')' : ''}: ${d.title}`;
+    const body = [`Предложение в IT-помощь · ${CONFIG.hotel}`, head, ...(d.lines.length ? d.lines.map((l, i) => `${i+1}. ${l}`) : ['—']), `От: ${d.by || '—'}`].join('\n');
+    g('sg-out').textContent = body;
+    const full = body + '\n\nКод для редактора: ' + encSug(d);
+    g('sg-tg').href = 'https://t.me/share/url?url=' + encodeURIComponent(full);
+    store.set('me', Object.assign(store.get('me', {}), { who: g('sg-who').value }));
+    return { d, full };
+  };
+  const valid = () => {
+    const { d } = upd();
+    const err = d.kind === 'new' && !d.title ? 'Напишите, что сломалось.' : !d.lines.length ? 'Напишите хотя бы одно действие.' : '';
+    g('sg-err').textContent = err; return !err;
+  };
+  const finish = () => {
+    const { d } = upd();
+    const mine = store.get('mysug', []).filter(x => !(x.card === d.card && x.kind === d.kind && x.lines.join() === d.lines.join()));
+    mine.unshift(d); store.set('mysug', mine.slice(0, 30));
+    g('sg-done').hidden = false;
+  };
+  g('sg').addEventListener('input', upd); g('sg').addEventListener('change', upd); g('sg').addEventListener('submit', e => e.preventDefault());
+  g('sg-tg').addEventListener('click', e => { if (!valid()){ e.preventDefault(); return; } finish(); });
+  g('sg-cp').onclick = () => { if (!valid()) return; copyText(upd().full, g('sg-cp'), 'Скопировано'); finish(); };
+  upd();
+}
+
+/* блок внизу карточки: позвать подсказать + свои ещё не проверенные предложения */
+function contribBlock(c){
+  const done = new Set((c.alts || []).map(a => a.text));
+  const mine = store.get('mysug', []).filter(x => x.card === c.id && !done.has(x.lines.join('. ')));
+  return `${mine.length ? `<div class="mine"><span class="eyebrow">Ваши предложения · ждут проверки IT</span>
+      ${mine.map(m => `<div class="mine-item"><b>${esc(KINDS[m.kind])}${m.step ? ', шаг ' + m.step : ''}</b><span>${esc(m.lines.join(' → '))}</span></div>`).join('')}</div>` : ''}
+    <a class="contrib" href="#suggest-${c.id}">
+      <span class="contrib-ic">${ic('bulb',20)}</span>
+      <span class="tx"><b>Знаете способ лучше?</b><span>Подскажите IT, и он появится в этой инструкции</span></span>
+      <span class="chev">${ic('chev',18)}</span></a>`;
+}
+
+/* редактор: вставил сообщение из Telegram → открылась карточка с подставленным предложением */
+function importPanel(){
+  return `<div class="panel">
+    <span class="eyebrow">Предложение от персонала</span>
+    <textarea class="code" id="sgin" style="min-height:90px;white-space:pre-wrap" placeholder="Вставьте сообщение из Telegram целиком" aria-label="Сообщение с предложением"></textarea>
+    <button class="btn small" type="button" id="sgparse">Разобрать</button>
+    <div id="sgres" aria-live="polite"></div></div>`;
+}
+function wireImport(){
+  const btn = document.getElementById('sgparse'); if (!btn) return;
+  btn.onclick = () => {
+    const d = decSug(document.getElementById('sgin').value), res = document.getElementById('sgres');
+    if (!d){ res.innerHTML = '<div class="note">Не нашёл код «DH1.…». Вставьте сообщение целиком, вместе со строкой «Код для редактора».</div>'; return; }
+    const target = d.kind !== 'new' && byId(d.card) ? d.card : 'new';
+    res.innerHTML = `<div class="mine-item"><b>${esc(KINDS[d.kind] || '')}${d.step ? ', шаг ' + d.step : ''} · ${esc(d.title || '')}</b>
+      <span>${esc((d.lines || []).join(' → '))}</span><span class="hint">От: ${esc(d.by || '—')} · ${esc(d.at || '')}</span></div>
+      <a class="btn small" href="#edit-${target}" id="sgopen">${target === 'new' ? 'Создать карточку' : 'Открыть карточку с предложением'}</a>`;
+    document.getElementById('sgopen').addEventListener('click', () => { pendingPrefill = d; });
+  };
+}
+function applyPrefill(ed, isNew, id){
+  const p = pendingPrefill;
+  if (!p) return '';
+  const fits = isNew ? (p.kind === 'new' || !byId(p.card)) : p.card === id;
+  if (!fits) return '';
+  pendingPrefill = null;
+  const lines = p.lines || [];
+  if (p.kind === 'new' || isNew){ ed.title = p.title || ''; ed.steps = lines.length ? lines.map(t => ({ t })) : [{ t:'' }]; }
+  else if (p.kind === 'add') lines.forEach(t => ed.steps.push({ t }));
+  else if (p.kind === 'other') ed.alts = [...(ed.alts || []), { text: lines.join('. '), by: p.by || '' }];
+  if (p.by && !(ed.credits || []).includes(p.by)) ed.credits = [...(ed.credits || []), p.by];
+  const what = { new:'новая карточка уже заполнена', add:'шаги добавлены в конец', other:'способ добавлен в «Ещё помогало коллегам»', fix:`поправьте шаг ${p.step} вручную` }[p.kind] || '';
+  return `<div class="fix" role="note">${ic('bulb',20)}<div><b>Предложение от ${esc(p.by || 'сотрудника')}: ${esc(what)}</b><span>${esc(lines.join(' → '))}</span><span class="hint">Проверьте, поправьте формулировки и сохраните.</span></div></div>`;
+}
+
+/* --- QR для наклейки на устройство --- */
+function viewQR(id){
+  const c = byId(id); if (!c) return viewStats();
+  const url = location.href.split('#')[0] + '#c-' + id;
+  app.innerHTML = `<div class="view">
+    ${backLink('stats', 'Для IT')}
+    <div class="card-head"><span class="eyebrow brass">Наклейка на устройство</span><h2>${esc(c.title)}</h2>
+      <p>Сохраните картинку (долгое нажатие) и распечатайте. Сканируют камерой телефона и сразу попадают в инструкцию.</p></div>
+    <div class="qr" id="qr"><div class="empty">Готовлю QR…</div></div>
+    <div class="note" style="overflow-wrap:anywhere">${esc(url)}</div>
+    ${footer()}</div>`;
+  const draw = () => {
+    try {
+      const q = qrcode(0, 'M'); q.addData(url); q.make();
+      document.getElementById('qr').innerHTML = `<img alt="QR-код инструкции" src="${q.createDataURL(8, 2)}"><span class="qt">${esc(c.title)}</span><span class="eyebrow">Отсканируйте камерой · IT-помощь</span>`;
+    } catch(e){ document.getElementById('qr').innerHTML = '<div class="empty">Не получилось построить QR.</div>'; }
+  };
+  if (window.qrcode) return draw();
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+  s.onload = draw;
+  s.onerror = () => { const el = document.getElementById('qr'); if (el) el.innerHTML = '<div class="empty">Для QR нужен интернет. Подключитесь и откройте экран ещё раз.</div>'; };
+  document.head.appendChild(s);
+}
+
+/* --- установка на телефон --- */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; renderInstall(); });
+function renderInstall(){
+  const box = document.getElementById('install'); if (!box) return;
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (standalone || store.get('installHidden', false)) { box.innerHTML = ''; return; }
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  let html = '';
+  if (deferredPrompt) html = `<div class="banner"><span class="tx">Поставьте приложение на телефон: откроется одним тапом и без интернета.</span><button class="btn small" id="inst" type="button">Установить</button></div>`;
+  else if (ios) html = `<div class="banner"><span class="brass" style="display:flex">${ic('share',20)}</span><span class="tx">Нажмите «Поделиться», затем «На экран „Домой“».</span><button class="icon-btn" id="hide" type="button" aria-label="Скрыть">${ic('x',16)}</button></div>`;
+  box.innerHTML = html;
+  const inst = document.getElementById('inst');
+  if (inst) inst.onclick = async () => { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; renderInstall(); };
+  const hide = document.getElementById('hide');
+  if (hide) hide.onclick = () => { store.set('installHidden', true); renderInstall(); };
+}
+
+/* --- навигация: «назад» возвращает туда, откуда пришёл --- */
+let depth = 0;
+app.addEventListener('click', e => {
+  const b = e.target.closest('[data-back]');
+  if (b && depth > 0){ e.preventDefault(); history.back(); return; }
+  const s = e.target.closest('#size');
+  if (s){ bigText = !bigText; store.set('big', bigText); app.classList.toggle('big', bigText); s.setAttribute('aria-pressed', bigText); }
+});
+function route(){
+  const h = location.hash.replace('#','');
+  if (h.startsWith('c-')) viewCard(h.slice(2));
+  else if (h.startsWith('d-')) viewDept(h.slice(2));
+  else if (h.startsWith('qr-')) viewQR(h.slice(3));
+  else if (h === 'stats') viewStats();
+  else if (h === 'admin') viewAdmin();
+  else if (h === 'suggest' || h.startsWith('suggest-')) viewSuggest(h.slice(8));
+  else if (h.startsWith('edit-')) viewEdit(h.slice(5));
+  else if (h === 'ticket' || h.startsWith('ticket-')) viewTicket(h.slice(7));
+  else if (h === 'call') viewCall();
+  else viewHome();
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', () => { depth++; route(); });
+window.addEventListener('online', route); window.addEventListener('offline', route);
+route();
+
+/* --- офлайн-режим и обновления (работает, когда приложение открыто с сайта) --- */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  try {
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      const notify = () => {
+        if (!reg.waiting || document.getElementById('upd')) return;
+        const bar = document.createElement('div');
+        bar.id = 'upd'; bar.className = 'banner';
+        bar.style.cssText = 'position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;box-shadow:var(--shadow)';
+        bar.innerHTML = '<span class="tx">Инструкции обновились.</span><button class="btn small" type="button">Обновить</button>';
+        bar.querySelector('button').onclick = () => reg.waiting.postMessage('skipWaiting');
+        document.body.appendChild(bar);
+      };
+      notify();
+      reg.addEventListener('updatefound', () => reg.installing && reg.installing.addEventListener('statechange', notify));
+    }).catch(() => {});
+    let reloaded = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (!reloaded){ reloaded = true; location.reload(); } });
+  } catch(e) {}
+}
+</script>
+
+</body>
+</html>
